@@ -1,0 +1,49 @@
+.carContainer {
+    border: 1px solid gray;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carContainer h3 {
+    font-size: 1.2em;
+    margin: 0;
+    color: #333;
+}
+
+.carContainer p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.carButtons {
+    margin-top: 10px;
+}
+
+.carButtons button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carButtons button:first-child {
+    background-color: #4CAF50;
+    /* ירוק לכפתור עריכה */
+    color: white;
+}
+
+.carButtons button:last-child {
+    background-color: #f44336;
+    /* אדום לכפתור מחיקה */
+    color: white;
+}
+
+.carButtons button:hover {
+    opacity: 0.8;
+}
