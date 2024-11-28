@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { connectDatabase, insertDocument,getAllDocuments,deleteDocument, updateCar } from "@/services/mongo";
+import { connectDatabase, insertDocument,getAllDocuments,deleteDocument } from "@/services/mongo";
 
 export async function GET(request: Request) {
     const client = await connectDatabase();
@@ -56,5 +56,7 @@ export async function DELETE(request: Request) {
         return NextResponse.json({ message: 'Error deleting car' }, { status: 500 });
     }
 }
+
+
 
 

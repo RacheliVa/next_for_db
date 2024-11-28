@@ -34,9 +34,6 @@ export default function Cars() {
         fetchCars();
     }, []);
 
-    const handleEdit = (car: Car) => {
-        console.log("edit car:", car);
-    };
 
     const handleDelete = async (id: string) => {
         console.log("Deleting car with ID:", id);
@@ -47,11 +44,10 @@ export default function Cars() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ id }), // שולח את ה-ID של הרכב למחיקה
+                body: JSON.stringify({ id }),
             });
 
             if (response.ok) {
-                // אם המחיקה הצליחה, עדכן את רשימת הרכבים
                 setCars(cars.filter(car => car._id !== id));
                 console.log("Car deleted successfully");
             } else {
@@ -62,7 +58,6 @@ export default function Cars() {
         }
     };
 
-
     const handleAddCar = () => {
         setIsAddingCar(true);
         console.log("Add new car");
@@ -72,40 +67,10 @@ export default function Cars() {
         setNewCar({ ...newCar, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if (!newCar.model_name || !newCar.plate_number || !newCar.color) {
-            console.error("All fields are required");
-            return;
-        }
-
-        try {
-            const response = await fetch('/api/cars', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newCar),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(`Failed to add car: ${errorData.message || 'Unknown error'}`);
-            }
-
-            const result = await response.json();
-            console.log("New car added with result:", result);
-
-            setNewCar({ model_name: "", plate_number: "", color: "" });
-            setIsAddingCar(false);
-
-        } catch (error) {
-            console.error("Error adding car:", error);
-        }
+    const handleEdit = async (car: Car) => {
+        console.log("edit car:", car);
     };
-
-
+    
     return (
         <div>
             <h1>Cars List</h1>
@@ -119,7 +84,7 @@ export default function Cars() {
                 />
             ))}
             {isAddingCar && (
-                <form onSubmit={handleSubmit}>
+                <form >
                     <input
                         type="text"
                         name="model_name"

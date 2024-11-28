@@ -8,11 +8,14 @@ interface Car {
     color: string;
 }
 
+
 interface CarProps {
     car: Car;
-    onEdit: (car: Car) => void;
+    onEdit: (car: Car) => Promise<void>; 
     onDelete: (id: string) => void;
 }
+
+
 
 const CarComponent: React.FC<CarProps> = ({ car, onEdit, onDelete }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -26,17 +29,19 @@ const CarComponent: React.FC<CarProps> = ({ car, onEdit, onDelete }) => {
         }));
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        // כאן תוכל לקרוא לפונקציה של עריכת הרכב
-        onEdit(editedCar);
-        setIsEditing(false); // לסגור את מצב העריכה לאחר שליחה
+    const handleSave = async () => {
+        try {
+            await onEdit(editedCar);
+            setIsEditing(false); 
+        } catch (error) {
+            console.error("Error saving car:", error);
+        }
     };
 
     return (
         <div className={styles.carContainer}>
             {isEditing ? (
-                <form onSubmit={handleSubmit}>
+                <form>
                     <input
                         type="text"
                         name="model_name"
@@ -55,7 +60,7 @@ const CarComponent: React.FC<CarProps> = ({ car, onEdit, onDelete }) => {
                         value={editedCar.color}
                         onChange={handleInputChange}
                     />
-                    <button type="submit">Save</button>
+                    <button type="button" onClick={handleSave}>Save</button>
                 </form>
             ) : (
                 <>

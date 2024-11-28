@@ -24,25 +24,5 @@ export async function deleteDocument(client: any, collection: string, id: string
     return result; 
 }
 
-// services/service.js
-export async function updateCar(id:string, updatedCar:any) {
-    try {
-        const response = await fetch(`/api/cars`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id, ...updatedCar }),
-        });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Failed to update car');
-        }
 
-        return await response.json();
-    } catch (error) {
-        console.error("Error updating car:", error);
-        throw error;
-    }
-}
